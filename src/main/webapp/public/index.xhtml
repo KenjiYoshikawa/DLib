@@ -1,16 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/public/template_initial.xhtml">
 	<ui:define name="nav_bar">
-		<ui:include src="top_bar.xhtml" />
+		<ui:include src="top_bar_auth.xhtml" />
 	</ui:define>
-
+	<ui:define name="menu">
+		<div class="row">
+			<ul class="nav nav-pills nav-justified">
+				<li class="active"><h:link value="Home" outcome="index" /></li>
+				<li><h:link value="Livros" outcome="books" /></li>
+				<li><a href="#">Perfil</a></li>
+			</ul>
+		</div>
+	</ui:define>
 	<ui:define name="container">
 		<div class="row">
-			<span>#{index.message}</span>
+		
 		</div>
 	</ui:define>
 </ui:composition>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/public/template_initial.xhtml">
+	<ui:define name="nav_bar">
+		<ui:include src="top_bar_auth.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<div class="row">
+			<ul class="nav nav-pills nav-justified">
+				<li><h:link value="Home" outcome="index" /></li>
+				<li class="active"><a href="#">Livros</a></li>
+				<li><a href="#">Perfil</a></li>
+			</ul>
+		</div>
+	</ui:define>
+
+	<ui:define name="container">
+		<div class="container">
+			<h2>Livros</h2>
+			<p>Livros disponíveis para emprésitmo:</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ISBN</th>
+						<th>Título</th>
+						<th>Descrição</th>
+						<th>Usuário</th>
+						<th>Detalhes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>111</td>
+						<td>Livro Um</td>
+						<td>jssadsadsadsadsadsadasdasd</td>
+						<td>Usuario um</td>
+						<td><a href="#"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>Livro Um</td>
+						<td>jssadsadsadsadsadsadasdasd</td>
+						<td>Usuario um</td>
+						<td><a href="#"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>Livro Um</td>
+						<td>jssadsadsadsadsadsadasdasd</td>
+						<td>Usuario um</td>
+						<td><a href="#"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>Livro Um</td>
+						<td>jssadsadsadsadsadsadasdasd</td>
+						<td>Usuario um</td>
+						<td><a href="#"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>Livro Um</td>
+						<td>jssadsadsadsadsadsadasdasd</td>
+						<td>Usuario um</td>
+						<td><a href="#"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>
