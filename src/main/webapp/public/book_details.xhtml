@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/public/template_initial.xhtml">
+	<ui:define name="nav_bar">
+		<ui:include src="top_bar_auth.xhtml" />
+	</ui:define>
+	<ui:define name="container">
+		<div class="container">
+			<div class="page-header">
+				<h3 class="colorDefault">Detalhes do Livro</h3>
+			</div>
+			<div class="container">
+				<div class="row verticalMiddleLarge">
+					<div class="col-xs-2 text-left">ISBN:</div>
+					<div class="col-xs-5">XXX</div>
+				</div>
+				<div class="row verticalMiddleLarge">
+					<div class="col-xs-2 text-left">Autor:</div>
+					<div class="col-xs-5">XXX XXXXXXX</div>
+				</div>
+				<div class="row verticalMiddleLarge">
+					<div class="col-xs-2 text-left">Título:</div>
+					<div class="col-xs-5">XXXXXXXX XX XXXXXXX</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="page-header">
+				<h3 class="colorDefault">Detalhes do Usuário</h3>
+			</div>
+			<div class="container">
+				<div class="row verticalMiddleLarge">
+					<div class="col-xs-2 text-left">Nome:</div>
+					<div class="col-xs-5">XXX</div>
+				</div>
+				<div class="row verticalMiddleLarge">
+					<div class="col-xs-2 text-left">Email:</div>
+					<div class="col-xs-5">XXX@XXXXXXX</div>
+				</div>
+			</div> 
+		</div>
+		<br></br>
+		<div class="row marginTop">
+			<div class="panel panel-color panel-heigth">
+				<div class="divButtons">
+					<div class="btn-group">
+						<h:button value="Solicitar empréstimo" outcome="books" class="btn btn-sm btn-primary" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
