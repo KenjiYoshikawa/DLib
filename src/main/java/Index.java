@@ -11,6 +11,6 @@ public class Index {
    }
  
    public String getMessage(){
-      return "Hello World JSF!";
+		return "Hello world!";
    }
 }
