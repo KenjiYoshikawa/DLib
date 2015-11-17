@@ -21,6 +21,7 @@ public class LivroDAO {
         List<Livro> livros = new ArrayList<Livro>();
 
         String sts = "SELECT isbn FROM LivroFisico";
+        //SELECT fisico.isbn, abstrato.titulo FROM LivroFisico as fisico, LivroAbstrato as abstrato where fisico.isbn = abstrato.isbn
 
         PreparedStatement busca = null;
         try {

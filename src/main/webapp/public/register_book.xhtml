@@ -19,13 +19,13 @@
 								</h3>
 							</div>
 							<div class="panel-body">
-								<form role="form">
+								<h:form>
 									<div class="form-group">
-										<label for="isbn">ISBN</label> <input type="text" class="form-control" id="isbn" placeholder="ISBN"></input>
+										<label for="isbn">ISBN</label> <h:inputText type="text" class="form-control" id="isbn" placeholder="ISBN" value="#{registerbook.isbn}"/>
 									</div>
 									<div class="help-block">Não sabe o <strong>ISBN</strong> do seu livro? Acesse <h:outputLink value="http://www.isbnsearch.org" target="_blank">http://www.isbnsearch.org</h:outputLink>.</div>
-									<h:button value="Cadastrar" outcome="books" class="btn btn-sm btn-primary" />
-								</form>
+									<h:commandButton value="Cadastrar" action="#{registerbook.submit}" class="btn btn-sm btn-primary" />
+								</h:form>
 							</div>
 						</div>
 					</div>
