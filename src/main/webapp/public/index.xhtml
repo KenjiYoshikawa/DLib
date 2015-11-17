@@ -6,18 +6,25 @@
 	<ui:define name="nav_bar">
 		<ui:include src="top_bar_auth.xhtml" />
 	</ui:define>
-	<ui:define name="menu">
-		<div class="row">
-			<ul class="nav nav-pills nav-justified">
-				<li class="active"><h:link value="Home" outcome="index" /></li>
-				<li><h:link value="Livros" outcome="books" /></li>
-				<li><a href="#">Perfil</a></li>
-			</ul>
-		</div>
-	</ui:define>
 	<ui:define name="container">
-		<div class="row">
-		
+		<div class="container-fluid">
+
+			<h1>D-Lib</h1>
+			<p class="lead">Uma Biblioteca Distribuída</p>
+
+			<div class="row-fluid">
+				<div class="span10">
+					<div class="well">
+						A <strong>D-Lib</strong> foi criada com o intuíto de facilitar o empréstimo de livros entre as pessoas.<br></br>
+						<br></br> Os principais usuários são estudantes universitários, que necessitam de diversos livros durante a vida acadêmica, porém, por muitas vezes, acabam não conseguindo encontrar estes livros na biblioteca da universidade e não tem recursos para comprar um.<br></br>
+						<br></br> A <strong>D-Lib</strong> fornece uma plataforma em que os usuários podem anunciar livros que podem emprestar e também podem encontrar livros que estão precisando, sendo assim uma <strong>Biblioteca Distribuída</strong>
+					</div>
+				</div>
+				<div class="span2">
+					<!--<div id="carbonads-container pull-right"><div class="carbonad"><div id="azcarbon"></div></div></div>
+ -->
+				</div>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>
