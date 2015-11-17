@@ -9,8 +9,8 @@
 
 	<ui:define name="container">
 		<div class="container">
-			<h2>Meus Livros</h2>
-			<p>Lista dos meus livros cadastrados no sistema:</p>
+			<h2>Meus Empréstimos</h2>
+			<p>Lista dos livros emprestados a mim:</p>
 			<table class="table">
 				<thead>
 					<tr>
@@ -18,7 +18,7 @@
 						<th>Título</th>
 						<th>Descrição</th>
 						<th>Usuário</th>
-						<th>Detalhes</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,41 +27,39 @@
 						<td>Livro Um</td>
 						<td>jssadsadsadsadsadsadasdasd</td>
 						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
+						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
 					</tr>
 					<tr>
 						<td>222</td>
 						<td>Livro Um</td>
 						<td>jssadsadsadsadsadsadasdasd</td>
 						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
+						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
 					</tr>
 					<tr>
 						<td>222</td>
 						<td>Livro Um</td>
 						<td>jssadsadsadsadsadsadasdasd</td>
 						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
+						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
 					</tr>
 					<tr>
 						<td>222</td>
 						<td>Livro Um</td>
 						<td>jssadsadsadsadsadsadasdasd</td>
 						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
+						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
 					</tr>
 					<tr>
 						<td>111</td>
 						<td>Livro Um</td>
 						<td>jssadsadsadsadsadsadasdasd</td>
 						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
+						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
 	</ui:define>
-
 </ui:composition>
 </html>
