@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/public/template_initial.xhtml">
 	<ui:define name="nav_bar">
@@ -15,7 +15,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<strong>Sign In </strong>
+									<strong>Entrar </strong>
 								</h3>
 							</div>
 							<div class="panel-body">
@@ -26,7 +26,7 @@
 									<div class="form-group">
 										<label for="exampleInputPassword1">Password </label> <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></input>
 									</div>
-									<button type="submit" class="btn btn-sm btn-success">Sign in</button>
+									<h:button value="Confirmar" outcome="index" class="btn btn-sm btn-success"/>
 								</form>
 							</div>
 						</div>
