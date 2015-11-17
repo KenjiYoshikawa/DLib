@@ -7,7 +7,7 @@
 	<display-name>dlib</display-name>
 
 	<welcome-file-list>
-		<welcome-file>public/index.xhtml</welcome-file>
+		<welcome-file>public/login.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
