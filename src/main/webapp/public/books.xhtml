@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/public/template_initial.xhtml">
 	<ui:define name="nav_bar">
@@ -11,54 +11,23 @@
 		<div class="container">
 			<h2>Livros</h2>
 			<p>Livros disponíveis para empréstimo:</p>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>ISBN</th>
-						<th>Título</th>
-						<th>Descrição</th>
-						<th>Usuário</th>
-						<th>Detalhes</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link></td>
-					</tr>
-				</tbody>
-			</table>
+			<h:dataTable value="#{books.allBooks}" var="c" styleClass="table">
+		      <h:column><f:facet name="header">ISBN</f:facet>
+		          #{c.ISBN}
+		      </h:column>
+		      <h:column><f:facet name="header">Título</f:facet>
+		         #{c.titulo}
+		      </h:column>
+		      <h:column><f:facet name="header">Descrição</f:facet>
+		         #{c.descricao}
+		      </h:column>
+		      <h:column><f:facet name="header">Usuário</f:facet>
+		         #{c.emailDono}
+		      </h:column>
+		      <h:column><f:facet name="header">Detalhes</f:facet>
+		         <h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link>
+		      </h:column>
+		   </h:dataTable>
 		</div>
 
 	</ui:define>
