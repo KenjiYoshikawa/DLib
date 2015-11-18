@@ -59,9 +59,9 @@ public class EmprestimoDAO {
         return emprestimos;
     }
 
-    public Emprestimo pegaLivroEmprestado (Usuario u, Livro livro, int dias) {
-        String sts1 = "UPDATE LivroFisico SET emprestado = true WHERE id = ?";
-        String sts2 = "INSERT INTO ObtemEmprestimo(email_u, idLivro, dataIni, dataFim, fechado) VALUES (?, ?, CURRENT_TIMESTAMP, SELECT date('now','start of day','+? day'), false)";
+    public Emprestimo pegaLivroEmprestado (Usuario u, Livro livro) {
+        String sts1 = "UPDATE LivroFisico SET emprestado = 'true' WHERE id = ?";
+        String sts2 = "INSERT INTO ObtemEmprestimo(email_u, idLivro, dataIni, dataFim, fechado) VALUES (?, ?, CURRENT_TIMESTAMP, (SELECT date('now','start of day','+7 day')), 'false')";
 
         PreparedStatement atualizaLivro = null;
         PreparedStatement insereEmprestimo = null;
@@ -77,17 +77,16 @@ public class EmprestimoDAO {
 
             insereEmprestimo.setString(1, u.getEmail());
             insereEmprestimo.setInt(2, livro.getId());
-            insereEmprestimo.setInt(3, dias+1);
 
             atualizaLivro.executeUpdate();
             insereEmprestimo.executeUpdate();
             
             ResultSet rs = insereEmprestimo.getGeneratedKeys();
             if (rs != null && rs.next()) {
-                Timestamp dataIni = rs.getTimestamp("dataIni");
-                Timestamp dataFim = rs.getTimestamp("dataFim");
+                //Timestamp dataIni = rs.getTimestamp("dataIni");
+                //Timestamp dataFim = rs.getTimestamp("dataFim");
 
-                emp = new Emprestimo(u.getEmail(), livro.getId(), dataIni, dataFim, false);
+                emp = new Emprestimo(u.getEmail(), livro.getId(), null, null, false);
             }
         } catch (SQLException e) {
             e.printStackTrace();

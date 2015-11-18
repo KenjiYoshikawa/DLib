@@ -20,7 +20,7 @@ public class LivroDAO {
     public List<Livro> buscaTodosLivros () {
         List<Livro> livros = new ArrayList<Livro>();
 
-        String sts = "SELECT id, isbn, emailDono FROM LivroFisico where emprestado='False'";
+        String sts = "SELECT id, isbn, emailDono FROM LivroFisico where emprestado='false'";
         //SELECT fisico.isbn, abstrato.titulo FROM LivroFisico as fisico, LivroAbstrato as abstrato where fisico.isbn = abstrato.isbn
 
         PreparedStatement busca = null;
@@ -29,7 +29,7 @@ public class LivroDAO {
 
             ResultSet rs = busca.executeQuery();
             while (rs.next()) {
-            	int id = rs.getInt("isbn");
+            	int id = rs.getInt("id");
                 String isbn = rs.getString("isbn");
                 String dono = rs.getString("emailDono");
                 Livro livro = new Livro(id, dono, isbn, false);
@@ -130,7 +130,7 @@ public class LivroDAO {
     }
 
     public void cadastraLivroISBN (Usuario u, String isbn) {
-        String sts = "INSERT INTO LivroFisico(id, emailDono, isbn, emprestado) VALUES (null, ?, ?, false)";
+        String sts = "INSERT INTO LivroFisico(id, emailDono, isbn, emprestado) VALUES (null, ?, ?, 'false')";
 
         PreparedStatement cadastra = null;
         try {

@@ -12,7 +12,7 @@ import model.modelo.Livro;
 
 @RequestScoped
 @ManagedBean
-public class Books {
+public class Loans {
 	
 	private List<Livro> books;
 	private DataModel<Livro> booksModel;
@@ -25,7 +25,7 @@ public class Books {
 		setBooksModel(new ListDataModel<Livro>(books));
     }
 	
-	public String loan()
+	public String unloan()
 	{
 		//Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		//String param = parameterMap.get("parameter");
@@ -33,7 +33,7 @@ public class Books {
 		Livro livro = getBooksModel().getRowData();
 		EmprestimoDAO dao = new EmprestimoDAO();
 		dao.pegaLivroEmprestado(Session.getUser(), livro);
-		return "myloans";
+		return "";
 	}
 
 	public DataModel<Livro> getBooksModel() {

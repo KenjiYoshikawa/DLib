@@ -6,13 +6,13 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import model.bd.EmprestimoDAO;
 import model.bd.LivroDAO;
+import model.bd.LivroDAO.BookSearchLimit;
 import model.modelo.Livro;
 
 @RequestScoped
 @ManagedBean
-public class Books {
+public class UserBooks {
 	
 	private List<Livro> books;
 	private DataModel<Livro> booksModel;
@@ -21,20 +21,9 @@ public class Books {
     @PostConstruct
     public void init() {
     	LivroDAO dao = new LivroDAO();
-		books = dao.buscaTodosLivros();
+		books = dao.buscaLivrosDono(Session.getUser(), BookSearchLimit.todos);
 		setBooksModel(new ListDataModel<Livro>(books));
     }
-	
-	public String loan()
-	{
-		//Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		//String param = parameterMap.get("parameter");
-		//int id = Integer.parseInt(param);
-		Livro livro = getBooksModel().getRowData();
-		EmprestimoDAO dao = new EmprestimoDAO();
-		dao.pegaLivroEmprestado(Session.getUser(), livro);
-		return "myloans";
-	}
 
 	public DataModel<Livro> getBooksModel() {
 		return booksModel;

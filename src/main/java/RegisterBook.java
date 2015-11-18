@@ -4,7 +4,7 @@ import javax.faces.bean.RequestScoped;
 import model.bd.LivroDAO;
 import model.modelo.Usuario;
 
-@ManagedBean
+@ManagedBean(name="registerbook")
 @RequestScoped
 public class RegisterBook {
  
