@@ -15,17 +15,11 @@
 		      <h:column><f:facet name="header">ISBN</f:facet>
 		          #{c.ISBN}
 		      </h:column>
-		      <h:column><f:facet name="header">Título</f:facet>
-		         #{c.titulo}
-		      </h:column>
-		      <h:column><f:facet name="header">Descrição</f:facet>
-		         #{c.descricao}
-		      </h:column>
 		      <h:column><f:facet name="header">Usuário</f:facet>
 		         #{c.emailDono}
 		      </h:column>
-		      <h:column><f:facet name="header">Detalhes</f:facet>
-		         <h:link outcome="book_details"><span style="font-size:20px;" class="glyphicon glyphicon-plus"></span></h:link>
+		      <h:column><f:facet name="header">Empréstimo</f:facet>
+		         <h:button value="Solicitar empréstimo" outcome="books" class="btn btn-sm btn-primary" />
 		      </h:column>
 		   </h:dataTable>
 		</div>

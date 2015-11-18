@@ -20,7 +20,7 @@ public class LivroDAO {
     public List<Livro> buscaTodosLivros () {
         List<Livro> livros = new ArrayList<Livro>();
 
-        String sts = "SELECT isbn FROM LivroFisico";
+        String sts = "SELECT id, isbn, emailDono FROM LivroFisico where emprestado='False'";
         //SELECT fisico.isbn, abstrato.titulo FROM LivroFisico as fisico, LivroAbstrato as abstrato where fisico.isbn = abstrato.isbn
 
         PreparedStatement busca = null;
@@ -29,8 +29,10 @@ public class LivroDAO {
 
             ResultSet rs = busca.executeQuery();
             while (rs.next()) {
+            	int id = rs.getInt("isbn");
                 String isbn = rs.getString("isbn");
-                Livro livro = new Livro(0, "", isbn, false);
+                String dono = rs.getString("emailDono");
+                Livro livro = new Livro(id, dono, isbn, false);
                 livros.add(livro);
             }
         } catch (SQLException e) {
