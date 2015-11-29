@@ -17,15 +17,16 @@ public class LivroDAO {
 
     public enum BookSearchLimit { todos, emprestados, nemprestados };
     
-    public List<Livro> buscaTodosLivros () {
+    public List<Livro> buscaTodosLivros (String email) {
         List<Livro> livros = new ArrayList<Livro>();
 
-        String sts = "SELECT id, isbn, emailDono FROM LivroFisico where emprestado='false'";
+        String sts = "SELECT id, isbn, emailDono FROM LivroFisico where emprestado='false' and emailDono!= ?";
         //SELECT fisico.isbn, abstrato.titulo FROM LivroFisico as fisico, LivroAbstrato as abstrato where fisico.isbn = abstrato.isbn
-
+        
         PreparedStatement busca = null;
         try {
             busca = c.prepareStatement(sts);
+            busca.setString(1, email);
 
             ResultSet rs = busca.executeQuery();
             while (rs.next()) {

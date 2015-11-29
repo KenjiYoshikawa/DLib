@@ -23,11 +23,11 @@ public class EmprestimoDAO {
 
         String sts;
         if (l == EmpSearchLimit.todos ) {
-            sts = "SELECT idLivro, dataIni, dataFim, fechado FROM LivroFisico WHERE email_u = ?";
+            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.email_u=?";
         } else if (l == EmpSearchLimit.abertos) {
-            sts = "SELECT idLivro, dataIni, dataFim, fechado FROM LivroFisico WHERE email_u = ? AND fechado = false";
+            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.fechado='false' AND e.email_u=?";
         } else {
-            sts = "SELECT idLivro, dataIni, dataFim, fechado FROM LivroFisico WHERE email_u = ? AND fechado = true";
+            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.fechado='true' AND e.email_u=?";
         }
 
         PreparedStatement busca = null;
@@ -39,11 +39,17 @@ public class EmprestimoDAO {
             ResultSet rs = busca.executeQuery();
             while (rs.next()) {
                 int idLivro       = rs.getInt("idLivro");
-                Timestamp dataIni = rs.getTimestamp("dataIni");
-                Timestamp dataFim = rs.getTimestamp("dataFim");
+                //Timestamp dataIni = rs.getTimestamp("dataIni");
+                //Timestamp dataFim = rs.getTimestamp("dataFim");
+                Timestamp dataIni = null;
+                Timestamp dataFim = null;
                 boolean fechado   = rs.getBoolean("fechado");
+                String emailDono  = rs.getString("emailDono");
+                String isbn  = rs.getString("isbn");
 
                 Emprestimo emp = new Emprestimo(u.getEmail(), idLivro, dataIni, dataFim, fechado);
+                emp.setEmailDono(emailDono);
+                emp.setISBN(isbn);
                 emprestimos.add(emp);
             }
         } catch (SQLException e) {
@@ -112,8 +118,8 @@ public class EmprestimoDAO {
     }
 
     public void fechaEmprestimo (Emprestimo emp) {
-        String sts1 = "UPDATE LivroFisico SET emprestado = false WHERE id = ?";
-        String sts2 = "UPDATE ObterEmprestimo SET fechado = true WHERE email = ? AND id = ?";
+        String sts1 = "UPDATE LivroFisico SET emprestado = 'false' WHERE id = ?";
+        String sts2 = "UPDATE ObtemEmprestimo SET fechado = 'true' WHERE email_u = ? AND idLivro = ?";
 
         PreparedStatement atualizaLivro = null;
         PreparedStatement terminaEmprestimo = null;

@@ -7,40 +7,37 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import model.bd.EmprestimoDAO;
-import model.bd.LivroDAO;
-import model.modelo.Livro;
+import model.bd.EmprestimoDAO.EmpSearchLimit;
+import model.modelo.Emprestimo;
 
 @RequestScoped
 @ManagedBean
 public class Loans {
 	
-	private List<Livro> books;
-	private DataModel<Livro> booksModel;
+	private List<Emprestimo> loans;
+	private DataModel<Emprestimo> loansModel;
 	
 
     @PostConstruct
     public void init() {
-    	LivroDAO dao = new LivroDAO();
-		books = dao.buscaTodosLivros();
-		setBooksModel(new ListDataModel<Livro>(books));
+    	EmprestimoDAO dao = new EmprestimoDAO();
+    	loans = dao.buscaEmprestimos(Session.getUser(), EmpSearchLimit.abertos);
+		setLoansModel(new ListDataModel<Emprestimo>(loans));
     }
 	
 	public String unloan()
 	{
-		//Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		//String param = parameterMap.get("parameter");
-		//int id = Integer.parseInt(param);
-		Livro livro = getBooksModel().getRowData();
+		Emprestimo loan = getLoansModel().getRowData();
 		EmprestimoDAO dao = new EmprestimoDAO();
-		dao.pegaLivroEmprestado(Session.getUser(), livro);
-		return "";
+		dao.fechaEmprestimo(loan);
+		return "myloans?faces-redirect=true";
 	}
 
-	public DataModel<Livro> getBooksModel() {
-		return booksModel;
+	public DataModel<Emprestimo> getLoansModel() {
+		return loansModel;
 	}
 
-	public void setBooksModel(DataModel<Livro> booksModel) {
-		this.booksModel = booksModel;
+	public void setLoansModel(DataModel<Emprestimo> loansModel) {
+		this.loansModel = loansModel;
 	}
 }

@@ -21,7 +21,7 @@ public class Books {
     @PostConstruct
     public void init() {
     	LivroDAO dao = new LivroDAO();
-		books = dao.buscaTodosLivros();
+		books = dao.buscaTodosLivros(Session.getUser().getEmail());
 		setBooksModel(new ListDataModel<Livro>(books));
     }
 	

@@ -23,6 +23,6 @@ public class RegisterBook {
 		Usuario user = Session.getUser();
 
 		livrodao.cadastraLivroISBN(user, getIsbn());
-		return "index";
+		return "mybooks";
 	}
 }

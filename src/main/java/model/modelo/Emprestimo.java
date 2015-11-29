@@ -4,6 +4,8 @@ import java.sql.*;
 
 public class Emprestimo {
     private String email_u;
+    private String emailDono;
+    private String isbn;
     private int idLivro;
     private Timestamp dataIni;
     private Timestamp dataFim;
@@ -16,6 +18,10 @@ public class Emprestimo {
         this.dataFim = dataFim;
         this.fechado = fechado;
     }
+    
+    public String getISBN() {
+		return isbn;
+	}
 
     public String getEmailUsuario () {
         return email_u;
@@ -36,4 +42,16 @@ public class Emprestimo {
     public boolean estaFechado () {
         return fechado;
     }
+
+	public void setISBN(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getEmailDono() {
+		return emailDono;
+	}
+
+	public void setEmailDono(String emailDono) {
+		this.emailDono = emailDono;
+	}
 }

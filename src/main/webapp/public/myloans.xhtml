@@ -11,54 +11,22 @@
 		<div class="container">
 			<h2>Meus Empréstimos</h2>
 			<p>Lista dos livros emprestados a mim:</p>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>ISBN</th>
-						<th>Título</th>
-						<th>Descrição</th>
-						<th>Usuário</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>222</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>Livro Um</td>
-						<td>jssadsadsadsadsadsadasdasd</td>
-						<td>Usuario um</td>
-						<td><h:button value="Devolver livro" class="btn btn-sm btn-primary"/></td>
-					</tr>
-				</tbody>
-			</table>
+			<h:dataTable value="#{loans.loansModel}" var="c" styleClass="table">
+		      <h:column><f:facet name="header">ISBN</f:facet>
+		          #{c.ISBN}
+		      </h:column>
+		      <h:column><f:facet name="header">Dono</f:facet>
+		         #{c.emailDono}
+		      </h:column>
+		      <h:column><f:facet name="header">Data</f:facet>
+		         #{c.dataIni}
+		      </h:column>
+		      <h:column><f:facet name="header">Empréstimo</f:facet>
+		         <h:form><h:commandButton action="#{loans.unloan}" value="Devolver Livro" class="btn btn-sm btn-primary">
+		         </h:commandButton></h:form>
+		         
+		      </h:column>
+		   </h:dataTable>
 		</div>
 	</ui:define>
 </ui:composition>

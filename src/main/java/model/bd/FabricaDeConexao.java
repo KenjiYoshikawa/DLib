@@ -7,7 +7,7 @@ import java.sql.*;
 public class FabricaDeConexao {
 
 	public static final String NOME_DRIVER = "org.sqlite.JDBC";
-	public static final String URL_BD = "jdbc:sqlite:/home/user/desktop/livraria.bd";
+	public static final String URL_BD = "jdbc:sqlite:/home/user/desktop/projeto/livraria.bd";
 	public static final String USUARIO_BD = "";
 	public static final String SENHA_BD = "";
 
