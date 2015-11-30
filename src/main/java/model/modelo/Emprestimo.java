@@ -12,7 +12,7 @@ public class Emprestimo {
     private String status;
 
     public Emprestimo (String email_u, int idLivro, Timestamp dataIni, Timestamp dataFim, String status) {
-        this.email_u = email_u;
+        this.setEmail_u(email_u);
         this.idLivro = idLivro;
         this.dataIni = dataIni;
         this.dataFim = dataFim;
@@ -24,7 +24,7 @@ public class Emprestimo {
 	}
 
     public String getEmailUsuario () {
-        return email_u;
+        return getEmail_u();
     }
 
     public int getIdLivro() {
@@ -53,5 +53,13 @@ public class Emprestimo {
 
 	public void setEmailDono(String emailDono) {
 		this.emailDono = emailDono;
+	}
+
+	public String getEmail_u() {
+		return email_u;
+	}
+
+	public void setEmail_u(String email_u) {
+		this.email_u = email_u;
 	}
 }

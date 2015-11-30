@@ -31,10 +31,15 @@ public class AuthFilter implements Filter {
 			String reqURI = reqt.getRequestURI();
 			if (reqURI.indexOf("/login.xhtml") >= 0 || reqURI.indexOf("/register.xhtml") >= 0
 					|| reqURI.indexOf("/top_bar.xhtml") >= 0 || (ses != null && ses.getAttribute("usuario") != null)
-					|| reqURI.contains("javax.faces.resource"))
+					|| reqURI.contains("javax.faces.resource")) {
+				resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP
+																						// 1.1.
+				resp.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+				resp.setDateHeader("Expires", 0); // Proxies.
 				chain.doFilter(request, response);
-			else
+			} else {
 				resp.sendRedirect(reqt.getContextPath() + "/public/login.xhtml");
+			}
 		} catch (Exception e) {
 		}
 	}

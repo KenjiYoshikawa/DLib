@@ -15,6 +15,12 @@
 		      <h:column><f:facet name="header">ISBN</f:facet>
 		          #{c.ISBN}
 		      </h:column>
+		      <h:column><f:facet name="header">Usuário</f:facet>
+		          #{c.email_u}
+		      </h:column>
+		      <h:column><f:facet name="header">Data</f:facet>
+		          #{c.dataIni}
+		      </h:column>
 		      <h:column><f:facet name="header">Aceitar</f:facet>
 		         <h:form><h:commandButton action="#{requests.accept}" value="Aceitar" class="btn btn-sm btn-primary"/>
 		         <h:commandButton action="#{requests.reject}" value="Rejeitar" class="btn btn-sm btn-primary"/></h:form>
@@ -23,6 +29,20 @@
 		   
 		   <h2>Devolução</h2>
 			<p>Lista dos pedidos de devolução:</p>
+			<h:dataTable value="#{requests.returnsModel}" var="c" styleClass="table">
+				<h:column><f:facet name="header">ISBN</f:facet>
+			          #{c.ISBN}
+			      </h:column>
+			      <h:column><f:facet name="header">Usuário</f:facet>
+			          #{c.email_u}
+			      </h:column>
+			      <h:column><f:facet name="header">Data</f:facet>
+			          #{c.dataIni}
+			      </h:column>
+			      <h:column><f:facet name="header">Confirmar</f:facet>
+			         <h:form><h:commandButton action="#{requests.confirm}" value="Confirmar" class="btn btn-sm btn-primary"/></h:form>
+			      </h:column>
+		      </h:dataTable>
 		</div>
 
 	</ui:define>
