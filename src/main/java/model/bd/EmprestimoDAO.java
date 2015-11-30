@@ -16,18 +16,18 @@ public class EmprestimoDAO {
         c = FabricaDeConexao.obterInstancia().obterConexao();
     }
 
-    public enum EmpSearchLimit { todos, abertos, fechados };
+    public enum EmpSearchLimit {  emprestado, pedidoEmp, pedidoDev };
 
     public List<Emprestimo> buscaEmprestimos (Usuario u, EmpSearchLimit l) {
         List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
 
         String sts;
-        if (l == EmpSearchLimit.todos ) {
-            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.email_u=?";
-        } else if (l == EmpSearchLimit.abertos) {
-            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.fechado='false' AND e.email_u=?";
+        if (l == EmpSearchLimit.pedidoEmp) {
+            sts = "SELECT e.email_u, e.idLivro, e.dataFim, e.status, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.status='pedido_emp' AND l.emailDono=?";
+        } else if (l == EmpSearchLimit.pedidoDev) {
+            sts = "SELECT e.email_u, e.idLivro, e.dataFim, e.status, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.status='pedido_dev' AND l.emailDono=?";
         } else {
-            sts = "SELECT e.idLivro, e.dataFim, e.fechado, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.fechado='true' AND e.email_u=?";
+        	sts = "SELECT e.email_u, e.idLivro, e.dataFim, e.status, l.isbn, l.emailDono, e.dataIni from LivroFisico as l, ObtemEmprestimo as e where e.idLivro=l.id AND e.status='emprestado' AND e.email_u=?";
         }
 
         PreparedStatement busca = null;
@@ -43,11 +43,12 @@ public class EmprestimoDAO {
                 //Timestamp dataFim = rs.getTimestamp("dataFim");
                 Timestamp dataIni = null;
                 Timestamp dataFim = null;
-                boolean fechado   = rs.getBoolean("fechado");
+                String status   = rs.getString("status");
                 String emailDono  = rs.getString("emailDono");
+                String email_u = rs.getString("email_u");
                 String isbn  = rs.getString("isbn");
 
-                Emprestimo emp = new Emprestimo(u.getEmail(), idLivro, dataIni, dataFim, fechado);
+                Emprestimo emp = new Emprestimo(email_u, idLivro, dataIni, dataFim, status);
                 emp.setEmailDono(emailDono);
                 emp.setISBN(isbn);
                 emprestimos.add(emp);
@@ -67,7 +68,7 @@ public class EmprestimoDAO {
 
     public Emprestimo pegaLivroEmprestado (Usuario u, Livro livro) {
         String sts1 = "UPDATE LivroFisico SET emprestado = 'true' WHERE id = ?";
-        String sts2 = "INSERT INTO ObtemEmprestimo(email_u, idLivro, dataIni, dataFim, fechado) VALUES (?, ?, CURRENT_TIMESTAMP, (SELECT date('now','start of day','+7 day')), 'false')";
+        String sts2 = "INSERT INTO ObtemEmprestimo(email_u, idLivro, dataIni, dataFim, status) VALUES (?, ?, CURRENT_TIMESTAMP, (SELECT date('now','start of day','+7 day')), 'pedido_emp')";
 
         PreparedStatement atualizaLivro = null;
         PreparedStatement insereEmprestimo = null;
@@ -92,7 +93,7 @@ public class EmprestimoDAO {
                 //Timestamp dataIni = rs.getTimestamp("dataIni");
                 //Timestamp dataFim = rs.getTimestamp("dataFim");
 
-                emp = new Emprestimo(u.getEmail(), livro.getId(), null, null, false);
+                emp = new Emprestimo(u.getEmail(), livro.getId(), null, null, "pedido_emp");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,8 +119,70 @@ public class EmprestimoDAO {
     }
 
     public void fechaEmprestimo (Emprestimo emp) {
+        String sts = "UPDATE ObtemEmprestimo SET status = 'pedido_dev' WHERE email_u = ? AND idLivro = ?";
+
+        PreparedStatement terminaEmprestimo = null;
+
+        try {
+            c.setAutoCommit(false);
+            terminaEmprestimo = c.prepareStatement(sts);
+            terminaEmprestimo.setString(1, emp.getEmailUsuario());
+            terminaEmprestimo.setInt(2, emp.getIdLivro());
+            terminaEmprestimo.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            if (c != null) {
+                try {
+                    System.err.println("Executando rollback");
+                    c.rollback();
+                } catch (SQLException excep) {
+                    excep.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                if (terminaEmprestimo != null) { terminaEmprestimo.close(); }
+                c.setAutoCommit(true);
+            } catch (SQLException excep) {
+                excep.printStackTrace();
+            }
+        }
+    }
+    
+    public void aceitaEmprestimo (Emprestimo emp) {
+        String sts = "UPDATE ObtemEmprestimo SET status = 'emprestado' WHERE email_u = ? AND idLivro = ?";
+
+        PreparedStatement terminaEmprestimo = null;
+
+        try {
+            c.setAutoCommit(false);
+            terminaEmprestimo = c.prepareStatement(sts);
+            terminaEmprestimo.setString(1, emp.getEmailUsuario());
+            terminaEmprestimo.setInt(2, emp.getIdLivro());
+            terminaEmprestimo.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            if (c != null) {
+                try {
+                    System.err.println("Executando rollback");
+                    c.rollback();
+                } catch (SQLException excep) {
+                    excep.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                if (terminaEmprestimo != null) { terminaEmprestimo.close(); }
+                c.setAutoCommit(true);
+            } catch (SQLException excep) {
+                excep.printStackTrace();
+            }
+        }
+    }
+    
+    public void terminaEmprestimo (Emprestimo emp) {
         String sts1 = "UPDATE LivroFisico SET emprestado = 'false' WHERE id = ?";
-        String sts2 = "UPDATE ObtemEmprestimo SET fechado = 'true' WHERE email_u = ? AND idLivro = ?";
+        String sts2 = "DELETE FROM ObtemEmprestimo WHERE email_u = ? AND idLivro = ?";
 
         PreparedStatement atualizaLivro = null;
         PreparedStatement terminaEmprestimo = null;

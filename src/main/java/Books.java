@@ -27,9 +27,6 @@ public class Books {
 	
 	public String loan()
 	{
-		//Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		//String param = parameterMap.get("parameter");
-		//int id = Integer.parseInt(param);
 		Livro livro = getBooksModel().getRowData();
 		EmprestimoDAO dao = new EmprestimoDAO();
 		dao.pegaLivroEmprestado(Session.getUser(), livro);

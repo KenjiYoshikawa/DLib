@@ -9,16 +9,20 @@
 
 	<ui:define name="container">
 		<div class="container">
-			<h2>Meus Livros</h2>
-			<p>Lista dos meus livros cadastrados no sistema:</p>
-			<h:dataTable value="#{userBooks.booksModel}" var="c" styleClass="table">
+			<h2>Empréstimo</h2>
+			<p>Lista dos pedidos de empréstimo:</p>
+			<h:dataTable value="#{requests.requestsModel}" var="c" styleClass="table">
 		      <h:column><f:facet name="header">ISBN</f:facet>
 		          #{c.ISBN}
 		      </h:column>
-		      <h:column><f:facet name="header">Excluir Livro</f:facet>
-		         <h:form><h:commandButton action="#{userBooks.remove}" value="Excluir" class="btn btn-sm btn-primary"/></h:form>
+		      <h:column><f:facet name="header">Aceitar</f:facet>
+		         <h:form><h:commandButton action="#{requests.accept}" value="Aceitar" class="btn btn-sm btn-primary"/>
+		         <h:commandButton action="#{requests.reject}" value="Rejeitar" class="btn btn-sm btn-primary"/></h:form>
 		      </h:column>
 		   </h:dataTable>
+		   
+		   <h2>Devolução</h2>
+			<p>Lista dos pedidos de devolução:</p>
 		</div>
 
 	</ui:define>

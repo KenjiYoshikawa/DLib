@@ -9,14 +9,14 @@ public class Emprestimo {
     private int idLivro;
     private Timestamp dataIni;
     private Timestamp dataFim;
-    private boolean fechado;
+    private String status;
 
-    public Emprestimo (String email_u, int idLivro, Timestamp dataIni, Timestamp dataFim, boolean fechado) {
+    public Emprestimo (String email_u, int idLivro, Timestamp dataIni, Timestamp dataFim, String status) {
         this.email_u = email_u;
         this.idLivro = idLivro;
         this.dataIni = dataIni;
         this.dataFim = dataFim;
-        this.fechado = fechado;
+        this.status = status;
     }
     
     public String getISBN() {
@@ -39,8 +39,8 @@ public class Emprestimo {
         return dataFim;
     }
 
-    public boolean estaFechado () {
-        return fechado;
+    public String getStatus () {
+        return status;
     }
 
 	public void setISBN(String isbn) {

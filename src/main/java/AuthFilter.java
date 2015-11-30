@@ -30,7 +30,8 @@ public class AuthFilter implements Filter {
 
 			String reqURI = reqt.getRequestURI();
 			if (reqURI.indexOf("/login.xhtml") >= 0 || reqURI.indexOf("/register.xhtml") >= 0
-					|| reqURI.indexOf("/top_bar.xhtml") >= 0 || (ses != null && ses.getAttribute("usuario") != null))
+					|| reqURI.indexOf("/top_bar.xhtml") >= 0 || (ses != null && ses.getAttribute("usuario") != null)
+					|| reqURI.contains("javax.faces.resource"))
 				chain.doFilter(request, response);
 			else
 				resp.sendRedirect(reqt.getContextPath() + "/public/login.xhtml");

@@ -49,6 +49,28 @@ public class LivroDAO {
         return livros;
     }
     
+    public boolean removeLivro (Livro livro) {
+        String sts = "DELETE FROM LivroFisico where id= ?";
+        
+        PreparedStatement busca = null;
+        try {
+            busca = c.prepareStatement(sts);
+            busca.setInt(1, livro.getId());
+            busca.execute();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (busca != null) { busca.close(); }
+            } catch (SQLException excep) {
+                excep.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+    
     public List<Livro> buscaLivrosISBN (String isbn, BookSearchLimit l) {
         List<Livro> livros = new ArrayList<Livro>();
 

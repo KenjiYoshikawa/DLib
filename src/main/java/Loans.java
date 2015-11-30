@@ -21,7 +21,7 @@ public class Loans {
     @PostConstruct
     public void init() {
     	EmprestimoDAO dao = new EmprestimoDAO();
-    	loans = dao.buscaEmprestimos(Session.getUser(), EmpSearchLimit.abertos);
+    	loans = dao.buscaEmprestimos(Session.getUser(), EmpSearchLimit.emprestado);
 		setLoansModel(new ListDataModel<Emprestimo>(loans));
     }
 	
