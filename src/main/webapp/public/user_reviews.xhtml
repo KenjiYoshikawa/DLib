@@ -9,17 +9,17 @@
 
 	<ui:define name="container">
 		<div class="container">
-			<h2>Livros</h2>
-			<p>Livros disponíveis para empréstimo:</p>
-			<h:dataTable value="#{books.booksModel}" var="c" styleClass="table">
-		      <h:column><f:facet name="header">ISBN</f:facet>
-		          #{c.ISBN}
-		      </h:column>
+			<h2>Avaliações do usuário</h2>
+			<p>Avaliações de #{userReviews.username}:</p>
+			<h:dataTable value="#{userReviews.reviewsModel}" var="c" styleClass="table">
 		      <h:column><f:facet name="header">Usuário</f:facet>
-		         <h:form><h:commandLink value="#{c.emailDono}" action="#{books.viewUser}"/></h:form>
+		          #{c.email1}
 		      </h:column>
-		      <h:column><f:facet name="header">Empréstimo</f:facet>
-		         <h:form><h:commandButton action="#{books.loan}" value="Solicitar Empréstimo" class="btn btn-sm btn-primary"/></h:form>
+		      <h:column><f:facet name="header">Nota</f:facet>
+		         #{c.nota}
+		      </h:column>
+		      <h:column><f:facet name="header">Comentário</f:facet>
+		         #{c.descricao}
 		      </h:column>
 		   </h:dataTable>
 		</div>

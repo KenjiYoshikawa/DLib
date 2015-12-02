@@ -16,7 +16,7 @@
 		          #{c.ISBN}
 		      </h:column>
 		      <h:column><f:facet name="header">Dono</f:facet>
-		         #{c.emailDono}
+		         <h:form><h:commandLink value="#{c.emailDono}" action="#{loans.viewUser}"/></h:form>
 		      </h:column>
 		      <h:column><f:facet name="header">Data</f:facet>
 		         #{c.dataIni}

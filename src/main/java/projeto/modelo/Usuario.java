@@ -1,4 +1,4 @@
-package model.modelo;
+package projeto.modelo;
 
 public class Usuario {
     private String email;

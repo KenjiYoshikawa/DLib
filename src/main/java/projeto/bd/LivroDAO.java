@@ -1,12 +1,12 @@
-package model.bd;
+package projeto.bd;
 
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import model.bd.FabricaDeConexao;
-import model.modelo.Usuario;
-import model.modelo.Livro;
+import projeto.bd.FabricaDeConexao;
+import projeto.modelo.Usuario;
+import projeto.modelo.Livro;
 
 public class LivroDAO {
     private Connection c;
@@ -52,12 +52,13 @@ public class LivroDAO {
     public boolean removeLivro (Livro livro) {
         String sts = "DELETE FROM LivroFisico where id= ?";
         
+        boolean success = false;
         PreparedStatement busca = null;
         try {
             busca = c.prepareStatement(sts);
             busca.setInt(1, livro.getId());
             busca.execute();
-            
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -68,7 +69,7 @@ public class LivroDAO {
             }
         }
 
-        return true;
+        return success;
     }
     
     public List<Livro> buscaLivrosISBN (String isbn, BookSearchLimit l) {
@@ -78,10 +79,9 @@ public class LivroDAO {
         if (l == BookSearchLimit.todos ) {
             sts = "SELECT id, emailDono, emprestado FROM LivroFisico WHERE isbn = ?";
         } else if (l == BookSearchLimit.emprestados) {
-            sts = "SELECT id, emailDono, emprestado FROM LivroFisico WHERE isbn = ? AND emprestado = true";
+            sts = "SELECT id, emailDono, emprestado FROM LivroFisico WHERE isbn = ? AND emprestado = 'true'";
         } else {
-            sts = "SELECT id, emailDono, emprestado FROM LivroFisico WHERE isbn = ? AND emprestado = false";
-
+            sts = "SELECT id, emailDono, emprestado FROM LivroFisico WHERE isbn = ? AND emprestado = 'false'";
         }
 
         PreparedStatement busca = null;
@@ -119,9 +119,9 @@ public class LivroDAO {
         if (l == BookSearchLimit.todos ) {
             sts = "SELECT id, isbn, emprestado FROM LivroFisico WHERE emailDono = ?";
         } else if (l == BookSearchLimit.emprestados) {
-            sts = "SELECT id, isbn, emprestado FROM LivroFisico WHERE emailDono = ? AND emprestado = true";
+            sts = "SELECT id, isbn, emprestado FROM LivroFisico WHERE emailDono = ? AND emprestado = 'true'";
         } else {
-            sts = "SELECT id, isbn, emprestado FROM LivroFisico WHERE emailDono = ? AND emprestado = false";
+            sts = "SELECT id, isbn, emprestado FROM LivroFisico WHERE emailDono = ? AND emprestado = 'false'";
         }
 
         PreparedStatement busca = null;
@@ -152,9 +152,10 @@ public class LivroDAO {
         return livros;
     }
 
-    public void cadastraLivroISBN (Usuario u, String isbn) {
+    public boolean cadastraLivroISBN (Usuario u, String isbn) {
         String sts = "INSERT INTO LivroFisico(id, emailDono, isbn, emprestado) VALUES (null, ?, ?, 'false')";
 
+        boolean success = false;
         PreparedStatement cadastra = null;
         try {
             c.setAutoCommit(false);
@@ -164,6 +165,8 @@ public class LivroDAO {
             cadastra.setString(2, isbn);
 
             cadastra.executeUpdate();
+            c.commit();
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
             if (c != null) {
@@ -182,5 +185,6 @@ public class LivroDAO {
                 excep.printStackTrace();
             }
         }
+        return success;
     }
 }

@@ -16,7 +16,7 @@
 		          #{c.ISBN}
 		      </h:column>
 		      <h:column><f:facet name="header">Usuário</f:facet>
-		          #{c.email_u}
+		          <h:form><h:commandLink value="#{c.email_u}" action="#{requests.viewUserReq}"/></h:form>
 		      </h:column>
 		      <h:column><f:facet name="header">Data</f:facet>
 		          #{c.dataIni}
@@ -34,7 +34,7 @@
 			          #{c.ISBN}
 			      </h:column>
 			      <h:column><f:facet name="header">Usuário</f:facet>
-			          #{c.email_u}
+			          <h:form><h:commandLink value="#{c.email_u}" action="#{requests.viewUserRet}"/></h:form>
 			      </h:column>
 			      <h:column><f:facet name="header">Data</f:facet>
 			          #{c.dataIni}

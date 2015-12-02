@@ -1,3 +1,4 @@
+package projeto;
 
 /* Adaptado de: http://www.journaldev.com/7252/jsf-authentication-login-logout-database-example */
 

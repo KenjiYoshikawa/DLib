@@ -1,8 +1,10 @@
+package projeto;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import model.bd.LivroDAO;
-import model.modelo.Usuario;
+import projeto.bd.LivroDAO;
+import projeto.modelo.Usuario;
 
 @ManagedBean(name="registerbook")
 @RequestScoped

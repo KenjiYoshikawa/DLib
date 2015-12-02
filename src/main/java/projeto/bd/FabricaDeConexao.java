@@ -1,13 +1,14 @@
-package model.bd;
+package projeto.bd;
 
 /* Exemplo adaptado de:  http://www.caelum.com.br/apostila-java-web/bancos-de-dados-e-jdbc/  */
 
 import java.sql.*;
+import java.util.Properties;
 
 public class FabricaDeConexao {
 
 	public static final String NOME_DRIVER = "org.sqlite.JDBC";
-	public static final String URL_BD = "jdbc:sqlite:/home/user/desktop/projeto/livraria.bd";
+	public static final String URL_BD = "jdbc:sqlite:C:\\Users\\Takeshi\\Documents\\projetoengsoft\\livraria.bd";
 	public static final String USUARIO_BD = "";
 	public static final String SENHA_BD = "";
 
@@ -33,7 +34,10 @@ public class FabricaDeConexao {
      */
 	public Connection obterConexao() {
 		try {
-			return DriverManager.getConnection(URL_BD, USUARIO_BD, SENHA_BD);
+			Properties properties = new Properties();
+			properties.setProperty("user", USUARIO_BD);
+			properties.setProperty("password", SENHA_BD);
+			return DriverManager.getConnection(URL_BD, properties);
 		} catch (SQLException e) {
 			// A SQLException é "encapsulada" em uma RuntimeException
 			// para desacoplar o código da API de JDBC

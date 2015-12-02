@@ -1,11 +1,14 @@
+package projeto;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
-import model.bd.UsuarioDAO;
-import model.modelo.Usuario;
+import projeto.Session;
+import projeto.bd.UsuarioDAO;
+import projeto.modelo.Usuario;
 
 @ManagedBean
 @SessionScoped
@@ -48,10 +51,18 @@ public class Register implements Serializable {
 			return "register";
 		}
 		
+		if (this.pass.length() < 8) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "A senha precisa ter no minimo 8 caracteres", null));
+			return "register";
+		}
+		
 		UsuarioDAO userdao = new UsuarioDAO();
 		Usuario user = new Usuario(this.user, this.pass);
 
-		userdao.cadastraUsuario(user);
+		if (!userdao.cadastraUsuario(user)) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario nao pode ser cadastrado, erro desconhecido.", null));
+			return "register";
+		};
 		Session.setUser(user);
 	    return "index";
 	}

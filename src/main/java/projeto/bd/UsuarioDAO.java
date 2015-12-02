@@ -1,9 +1,9 @@
-package model.bd;
+package projeto.bd;
 
 import java.sql.*;
 
-import model.bd.FabricaDeConexao;
-import model.modelo.Usuario;
+import projeto.bd.FabricaDeConexao;
+import projeto.modelo.Usuario;
 
 public class UsuarioDAO {
     private Connection c;
@@ -39,14 +39,15 @@ public class UsuarioDAO {
         return false;
     }
 
-    public void cadastraUsuario (Usuario u) {
+    public boolean cadastraUsuario (Usuario u) {
         String sts = "INSERT INTO usuario(email, nome, senha, endereco) VALUES (?,?,?,?)";
 
         if (!u.isInsertValid()) {
             System.err.println("Objeto não pode ser inserido (invalido)");
-            return;
+            return false;
         }
 
+        boolean success = true;
         PreparedStatement cadastra = null;
         try {
             c.setAutoCommit(false);
@@ -58,7 +59,9 @@ public class UsuarioDAO {
             cadastra.setString(4, u.getEndereco());
 
             cadastra.executeUpdate();
+            c.commit();
         } catch (SQLException e) {
+        	success = false;
             e.printStackTrace();
             if (c != null) {
                 try {
@@ -76,5 +79,44 @@ public class UsuarioDAO {
                 excep.printStackTrace();
             }
         }
+        
+        return success;
     }
+
+    public boolean removeUsuario (Usuario u) {
+        String sts = "DELETE FROM usuario WHERE email = ?";
+
+        boolean success = true;
+        PreparedStatement deleta = null;
+        try {
+            c.setAutoCommit(false);
+            deleta = c.prepareStatement(sts);
+
+            deleta.setString(1, u.getEmail());
+
+            deleta.executeUpdate();
+            c.commit();
+        } catch (SQLException e) {
+        	success = false;
+            e.printStackTrace();
+            if (c != null) {
+                try {
+                    System.err.println("Executando rollback");
+                    c.rollback();
+                } catch (SQLException excep) {
+                    excep.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                if (deleta != null) { deleta.close(); }
+                c.setAutoCommit(true);
+            } catch (SQLException excep) {
+                excep.printStackTrace();
+            }
+        }
+        
+        return success;
+    }
+    
 }

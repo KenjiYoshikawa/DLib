@@ -1,4 +1,4 @@
-package model.modelo;
+package projeto.modelo;
 
 public class Livro {
     private int id;
@@ -35,8 +35,8 @@ public class Livro {
 		return titulo;
 	}
 
-	public void setTitulo(String título) {
-		this.titulo = título;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescricao() {

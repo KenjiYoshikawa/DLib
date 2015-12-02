@@ -1,21 +1,24 @@
+package projeto;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import model.bd.EmprestimoDAO;
-import model.bd.EmprestimoDAO.EmpSearchLimit;
-import model.modelo.Emprestimo;
+import projeto.bd.EmprestimoDAO;
+import projeto.bd.EmprestimoDAO.EmpSearchLimit;
+import projeto.modelo.Emprestimo;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class Loans {
 	
 	private List<Emprestimo> loans;
 	private DataModel<Emprestimo> loansModel;
+	private String username;
 	
 
     @PostConstruct
@@ -39,5 +42,21 @@ public class Loans {
 
 	public void setLoansModel(DataModel<Emprestimo> loansModel) {
 		this.loansModel = loansModel;
+	}
+	
+	public String viewUser()
+	{
+		Emprestimo loan = getLoansModel().getRowData();
+		username = loan.getEmailDono();
+		Session.setUsername(username);
+		return "user_reviews";
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

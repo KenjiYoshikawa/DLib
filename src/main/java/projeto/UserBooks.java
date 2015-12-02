@@ -1,3 +1,5 @@
+package projeto;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -6,9 +8,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import model.bd.LivroDAO;
-import model.bd.LivroDAO.BookSearchLimit;
-import model.modelo.Livro;
+import projeto.bd.LivroDAO;
+import projeto.bd.LivroDAO.BookSearchLimit;
+import projeto.modelo.Livro;
 
 @RequestScoped
 @ManagedBean

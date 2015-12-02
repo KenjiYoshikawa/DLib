@@ -1,13 +1,13 @@
-package model.bd;
+package projeto.bd;
 
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import model.bd.FabricaDeConexao;
-import model.modelo.Usuario;
-import model.modelo.Livro;
-import model.modelo.Emprestimo;
+import projeto.bd.FabricaDeConexao;
+import projeto.modelo.Usuario;
+import projeto.modelo.Livro;
+import projeto.modelo.Emprestimo;
 
 public class EmprestimoDAO {
     private Connection c;
@@ -72,6 +72,7 @@ public class EmprestimoDAO {
 
         PreparedStatement atualizaLivro = null;
         PreparedStatement insereEmprestimo = null;
+        Statement getNewEntry = null; 
 
         Emprestimo emp = null;
 
@@ -79,6 +80,7 @@ public class EmprestimoDAO {
             c.setAutoCommit(false);
             atualizaLivro = c.prepareStatement(sts1);
             insereEmprestimo = c.prepareStatement(sts2, Statement.RETURN_GENERATED_KEYS);
+            getNewEntry = c.createStatement();
 
             atualizaLivro.setInt(1, livro.getId());
 
@@ -88,13 +90,14 @@ public class EmprestimoDAO {
             atualizaLivro.executeUpdate();
             insereEmprestimo.executeUpdate();
             
-            ResultSet rs = insereEmprestimo.getGeneratedKeys();
+            ResultSet rs = getNewEntry.executeQuery("SELECT last_insert_rowid()");
             if (rs != null && rs.next()) {
                 //Timestamp dataIni = rs.getTimestamp("dataIni");
                 //Timestamp dataFim = rs.getTimestamp("dataFim");
 
                 emp = new Emprestimo(u.getEmail(), livro.getId(), null, null, "pedido_emp");
             }
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             if (c != null) {
@@ -129,6 +132,7 @@ public class EmprestimoDAO {
             terminaEmprestimo.setString(1, emp.getEmailUsuario());
             terminaEmprestimo.setInt(2, emp.getIdLivro());
             terminaEmprestimo.executeUpdate();
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             if (c != null) {
@@ -160,6 +164,7 @@ public class EmprestimoDAO {
             terminaEmprestimo.setString(1, emp.getEmailUsuario());
             terminaEmprestimo.setInt(2, emp.getIdLivro());
             terminaEmprestimo.executeUpdate();
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             if (c != null) {
@@ -199,6 +204,7 @@ public class EmprestimoDAO {
 
             atualizaLivro.executeUpdate();
             terminaEmprestimo.executeUpdate();
+            c.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             if (c != null) {

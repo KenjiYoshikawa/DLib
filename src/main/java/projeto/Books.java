@@ -1,21 +1,24 @@
+package projeto;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import model.bd.EmprestimoDAO;
-import model.bd.LivroDAO;
-import model.modelo.Livro;
+import projeto.bd.EmprestimoDAO;
+import projeto.bd.LivroDAO;
+import projeto.modelo.Livro;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class Books {
 	
 	private List<Livro> books;
 	private DataModel<Livro> booksModel;
+	private String username;
 	
 
     @PostConstruct
@@ -30,7 +33,7 @@ public class Books {
 		Livro livro = getBooksModel().getRowData();
 		EmprestimoDAO dao = new EmprestimoDAO();
 		dao.pegaLivroEmprestado(Session.getUser(), livro);
-		return "myloans";
+		return "books?faces-redirect=true";
 	}
 
 	public DataModel<Livro> getBooksModel() {
@@ -39,5 +42,21 @@ public class Books {
 
 	public void setBooksModel(DataModel<Livro> booksModel) {
 		this.booksModel = booksModel;
+	}
+	
+	public String viewUser()
+	{
+		Livro livro = getBooksModel().getRowData();
+		username = livro.getEmailDono();
+		Session.setUsername(username);
+		return "user_reviews";
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
