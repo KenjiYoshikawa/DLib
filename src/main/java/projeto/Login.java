@@ -34,7 +34,7 @@ public class Login implements Serializable {
 		this.pass = pass;
 	}
 
-	public String login() {
+	public String login() {		
 		UsuarioDAO userdao = new UsuarioDAO();
 		Usuario user = new Usuario(this.user, this.pass);
 

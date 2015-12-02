@@ -5,10 +5,13 @@ package projeto.bd;
 import java.sql.*;
 import java.util.Properties;
 
+import javax.faces.context.FacesContext;
+
 public class FabricaDeConexao {
 
 	public static final String NOME_DRIVER = "org.sqlite.JDBC";
-	public static final String URL_BD = "jdbc:sqlite:C:\\Users\\Takeshi\\Documents\\projetoengsoft\\livraria.bd";
+	public static final String URL_BD = "jdbc:sqlite:" + FacesContext.getCurrentInstance().getExternalContext().getRealPath("/livraria.bd");
+	//public static final String URL_BD = "jdbc:sqlite:/home/user/desktop/projeto/livraria.bd";
 	public static final String USUARIO_BD = "";
 	public static final String SENHA_BD = "";
 
